@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Text Analysis Demo</title>
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous"> -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+	 crossorigin="anonymous">
+
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="comprehend.css">
+	<!-- <script src="exif.js" type="text/javascript"></script> -->
+	<!--script src="binaryajax.min.js" type="text/javascript"></script-->
+	<script src="js/aws-sdk-2.240.1.js"></script>
+</head>
+
+<body>
+
+	<script src="js/comprehendai.js"></script>
+
+	<div class="navbar navbar-dark bg-dark navbar-fixed-top navbar-papyrus">
+		<div class="">
+
+			<img class="main-logo" src="data:image/png;base64,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">
+
+			<span class="papyrus-header">Papyrus > Text Analysis Demo</span>
+
+		</div>
+
+	</div>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="container">
+					<div class="form-group">
+						<div class="row">
+							<label for="sourceText">Source Text</label>
+							<textarea class="form-control" id="sourceText" rows="5"></textarea>
+						</div>
+						<div class="row mt-2">
+							<button class="btn btn-secondary btn-block" type="submit" onclick="onClick()" id="analyseButton">Analyse</button>
+						</div>
+					</div>
+					<div id="targetText" class="" style="display: none; height: fit-content;"></div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="container">
+
+					<div class="alert alert-dark">
+						<h4 class="alert-heading mb-0">Sentiment:
+							<span id="sentiment"> </span>
+						</h4>
+					</div>
+
+					<div class="row">
+						<!-- <label for="entitiesTable">Entities</label> -->
+						<table class="table table-bordered table-sm" id="entitiesTable">
+							<thead>
+								<tr>
+									<th>Entity</th>
+									<th>Category</th>
+									<th>Confidence</th>
+								</tr>
+							</thead>
+							<tbody id="entityTableBody"></tbody>
+						</table>
+					</div>
+
+					<div class="row">
+						<!-- <label for="phrasesTable">Key Phrases</label> -->
+						<table class="table table-bordered table-sm" id="phrasesTable">
+							<thead>
+								<tr>
+									<th>Key Phrase</th>
+									<th>Confidence</th>
+								</tr>
+							</thead>
+							<tbody id="phrasesTableBody"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
+                        <label class="btn btn-outline-secondary recognise-button active" id="face-selection">
+                            <input type="radio" name "options" id="face" autocomplete="off" checked> Recognise Faces
+                        </label>
+                        <label class="btn btn-outline-secondary recognise-button" id="text-selection">
+                            <input type="radio" name "options" id="text" autocomplete="off"> Recognise Text
+                        </label>
+                        <label class="btn btn-outline-secondary recognise-button" id="scene-selection">
+                            <input type="radio" name "options" id="scene" autocomplete="off"> Recognise Scenes
+                        </label>
+                    </div>
+                </div>
+                <div style="height:10px;"></div>
+                <div class="row">
+                    <label class="btn btn-secondary btn-block btn-file">
+                        Upload Picture
+                        <input id="inp" type="file" accept="image/*" style="display: none;">
+                    </label>
+                </div>
+                <br>
+                <img id="img" style="width: 100%;" class="img-responsive inline-block">
+                <br>
+                
+
+                <button id="speakbutton" class="btn btn-default btn-block" style="display: none;" onclick="speak();">Speak</button>
+            </div>
+            <div class="col-md-6">
+                <textarea id="output" rows="30" class="form-control"></textarea>
+
+            </div>
+        </div> -->
+	</div>
+
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script> -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	 crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+	 crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

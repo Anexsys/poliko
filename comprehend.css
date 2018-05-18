@@ -1,0 +1,80 @@
+.person {
+color: #d2ff4d;
+}
+
+.location {
+color: #4da6ff;
+}
+
+.organisation {
+color: #ff794d;
+}
+
+.commercialItem {
+color: #4dff79;
+}
+
+.event {
+color: #794dff;
+}
+
+.date {
+color: #002db3;
+}
+
+.quantity {
+color: #ff4da6;
+}
+
+.title {
+color: #a64dff;
+}
+
+.other {
+color: #4dffff;
+}
+
+.person-i {
+background-color: #d2ff4d;
+}
+
+.location-i {
+background-color: #4da6ff;
+}
+
+.organisation-i {
+background-color: #ff794d;
+}
+
+.commercialItem-i {
+background-color: #4dff79;
+}
+
+.event-i {
+background-color: #794dff;
+}
+
+.date-i {
+background-color: #002db3;
+color: white;
+}
+
+.quantity-i {
+background-color: #ff4da6;
+}
+
+.title-i {
+background-color: #a64dff;
+}
+
+.other-i {
+background-color: #4dffff;
+}
+
+.marked {
+    border-radius: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}

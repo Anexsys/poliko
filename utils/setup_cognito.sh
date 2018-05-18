@@ -5,7 +5,7 @@ COGNITO_ID_NAME=poliko
 EXEC_ROLE_NAME_UNAUTH=poliko_unauth
 EXEC_ROLE_NAME_AUTH=poliko_auth
 ACCOUNT_NUMBER=$(aws ec2 describe-security-groups --group-names 'Default' --query 'SecurityGroups[0].OwnerId' --output text)
-REGION=us-east-1
+REGION=eu-west-1
 
 cat << EOF >  /tmp/trust-policy.json
 {

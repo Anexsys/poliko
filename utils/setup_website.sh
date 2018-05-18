@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
-BUCKET_NAME=YOUR_BUCKET_NAME
+BUCKET_NAME=anexsys-poliko
 # if you want to use route53, make sure to read 
 # http://docs.aws.amazon.com/AmazonS3/latest/dev/website-hosting-custom-domain-walkthrough.html
-REGION=us-east-1
+REGION=eu-west-2
 
 cat << EOF >  /tmp/website.json
 {
